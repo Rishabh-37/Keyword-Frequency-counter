@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyword Predictor</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 40px; }
+        form { margin-bottom: 20px; }
+        input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result { margin-top: 30px; }
+        img { max-width: 600px; }
+    </style>
+</head>
+<body>
+    <h1>Keyword Predictor using BERT</h1>
+    <form method="POST">
+        <input type="text" name="headline" placeholder="Enter a headline..." value="{{ headline }}" required>
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if top_words %}
+    <div class="result">
+        <h3>Top Predicted Keywords:</h3>
+        <ul>
+            {% for word, score in top_words %}
+            <li>{{ word }} - {{ "%.2f"|format(score) }}</li>
+            {% endfor %}
+        </ul>
+        <img src="{{ plot_url }}" alt="Keyword Probabilities">
+    </div>
+    {% endif %}
+</body>
+</html>
